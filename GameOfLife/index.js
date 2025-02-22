@@ -12,6 +12,8 @@ var rowW = 0;
 var colH = 0;
 var generation = 0;
 const waitTime = 40;
+var translateX = 0;
+var translateY = 0;
 
 
 function cellsMapSetup() {
@@ -50,6 +52,9 @@ function setup() {
     cellsMap[8][6] = 1
     cellsMap[9][6] = 1
     cellsMap[7][5] = 1
+
+    translateX = canvasWidth * ((1 - universeScale) / 2);
+    translateY = canvasHeight * ((1 - universeScale) / 2);
 }
 
 function windowResized() {
@@ -59,6 +64,8 @@ function windowResized() {
     universeHeight = Math.floor((canvasHeight * universeScale) / squareSize) * squareSize;
     cellsMapSetup();
     resizeCanvas(canvasWidth, canvasHeight);
+    translateX = canvasWidth * ((1 - universeScale) / 2);
+    translateY = canvasHeight * ((1 - universeScale) / 2);
 }
 
 function copyFromNextGen() {
@@ -154,21 +161,21 @@ function draw() {
 
     background(250);
     textSize(35)
-    text("Conwy Game of Life", canvasWidth/2, 40);
+    text("Conwy Game of Life", canvasWidth/2, translateY - 30);
     textSize(15);
     if(generation > waitTime){
         fill('green');
-        text(`Generation: ${generation - waitTime}`, canvasWidth/2, 80)
+        text(`Generation: ${generation - waitTime}`, canvasWidth/2, translateY+(universeHeight)+25)
     }
     else{
         fill('red');
-        text("Select Cells to Be Alive", canvasWidth/2, 80);
+        text("Select Cells to Be Alive", canvasWidth/2, translateY+(universeHeight)+25);
        
     }
 
     fill('black');
     //Universe
-    translate(canvasWidth * ((1 - universeScale) / 2), canvasHeight * ((1 - universeScale) / 2));
+    translate(translateX, translateY);
     drawGrid();
     if (generation > waitTime) {
         generationCompute();
