@@ -10,7 +10,8 @@ var cellsMap = [];
 var nextGenCells = [];
 var rowW = 0;
 var colH = 0;
-var countPause = 0;
+var generation = 0;
+const waitTime = 40;
 
 
 function cellsMapSetup() {
@@ -69,7 +70,7 @@ function copyFromNextGen() {
 }
 
 //The meat of it
-function generation() {
+function generationCompute() {
     //Rule 1, any live cell with fewer than two live neighbours dies
     //Rule 2, any live cell with two or three live neighbours lives on to the next generation
     //Rule 3, any live cell with more than three live neighbours dies as if by overpopulation
@@ -152,18 +153,27 @@ function draw() {
     //cellsMap[8][4] == 1 ? cellsMap[8][4] = 0 : cellsMap[8][4] = 1
 
     background(250);
-    
+    textSize(35)
     text("Conwy Game of Life", canvasWidth/2, 40);
+    textSize(15);
+    if(generation > waitTime){
+        fill('green');
+        text(`Generation: ${generation - waitTime}`, canvasWidth/2, 80)
+    }
+    else{
+        fill('red');
+        text("Select Cells to Be Alive", canvasWidth/2, 80);
+       
+    }
 
+    fill('black');
     //Universe
     translate(canvasWidth * ((1 - universeScale) / 2), canvasHeight * ((1 - universeScale) / 2));
     drawGrid();
-    if (countPause > 40) {
-        generation();
-    } else{
-        text("Select Cells to Be Alive", canvasWidth/2, 10);
+    if (generation > waitTime) {
+        generationCompute();
     }
-    countPause += 1
+    generation += 1
     drawCells();
     translate(0, 0);
 }
