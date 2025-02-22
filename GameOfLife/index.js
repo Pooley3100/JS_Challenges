@@ -81,14 +81,14 @@ function generationCompute() {
 
             // Check all eight neighbors
             const neighbors = [
-                [(i - 1 + rowW) % rowW, (j - 1 + colH) % colH],
-                [(i - 1 + rowW) % rowW, j],
-                [(i - 1 + rowW) % rowW, (j + 1) % colH],
-                [i, (j - 1 + colH) % colH],
-                [i, (j + 1) % colH],
-                [(i + 1) % rowW, (j - 1 + colH) % colH],
-                [(i + 1) % rowW, j],
-                [(i + 1) % rowW, (j + 1) % colH]
+                [(i - 1 + rowW) % rowW, (j - 1 + colH) % colH], //upper left
+                [(i - 1 + rowW) % rowW, j], // left
+                [(i - 1 + rowW) % rowW, (j + 1) % colH], //bottom left
+                [i, (j - 1 + colH) % colH], //upper
+                [i, (j + 1) % colH], // bottom
+                [(i + 1) % rowW, (j - 1 + colH) % colH], //upper right
+                [(i + 1) % rowW, j], //right
+                [(i + 1) % rowW, (j + 1) % colH] //bottom right
             ];
 
             for (const [x, y] of neighbors) {
